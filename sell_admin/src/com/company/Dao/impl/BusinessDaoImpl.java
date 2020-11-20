@@ -7,6 +7,7 @@ import com.company.Dao.BusinessDao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class BusinessDaoImpl implements BusinessDao{
     PreparedStatement pst = null;
     ResultSet rs = null;
 
+    @Override
     public List<Business> listBusiness() {
         ArrayList<Business> list = new ArrayList<>();
         String sql = "select * from business";
@@ -36,7 +38,7 @@ public class BusinessDaoImpl implements BusinessDao{
         return list;
     }
 
-
+    @Override
     public int saveBusiness(String businessName) {
         int businessId = 0;
         // 希望插入一个商家的时候自动给一个默认密码
@@ -61,12 +63,43 @@ public class BusinessDaoImpl implements BusinessDao{
 
         return businessId;
     }
-    public int removeBusiness(String businessName){
-        return 0;
+
+    /**
+     * 删除商家
+     * @param businessId 商家id
+     * @return 0代表删除失败 1 代表删除成功
+     */
+    @Override
+    public int removeBusiness(int businessId) {
+        int result = 0;
+        String sql = "delete from business where businessId = ?";
+        try{
+            conn = JDBCUtil.getConnection();
+            conn.setAutoCommit(false);
+            pst = conn.prepareStatement(sql);
+            pst.setInt(1,businessId);
+            result = pst.executeUpdate();
+            conn.commit();
+        }catch (Exception e){
+            result = 0;
+            try{
+                conn.rollback();
+            }catch(SQLException throwables){
+                throwables.printStackTrace();
+            }
+            e.printStackTrace();
+        }finally {
+            JDBCUtil.close(pst,conn);
+        }
+        return result;
     }
+
+    @Override
     public int supdateBusiness(Business business){
         return 0;
     }
+
+    @Override
     public Business getBusinessById(){
         return null;
     }
