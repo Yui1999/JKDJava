@@ -17,17 +17,29 @@ public class BusinessDaoImpl implements BusinessDao{
     ResultSet rs = null;
 
     @Override
-    public List<Business> listBusiness() {
+    public List<Business> listBusiness(String businessName, String businessAddress) {
         ArrayList<Business> list = new ArrayList<>();
-        String sql = "select * from business";
+        StringBuffer sql = new StringBuffer("select * from business WHERE 1=1");
+        if(businessName != null && !businessName.equals("")){
+            sql.append("and businessAddress like '%"+businessName+"%'");
+        }
+        if(businessAddress != null && !businessAddress.equals("")){
+            sql.append("and businessAddress like '%"+businessAddress+"%'");
+        }
+//        System.out.println("sql ="+sql.toString());
         try {
             conn = JDBCUtil.getConnection();
-            pst = conn.prepareStatement(sql);
+            pst = conn.prepareStatement(sql.toString());
             rs = pst.executeQuery();
             while (rs.next()){
                 Business business = new Business();
-                String businessName = rs.getString(3);
-                business.setBusinessName(businessName);
+                business.setBusinessId(rs.getInt(1));
+                business.setPassword(rs.getString(2));
+                business.setBusinessName(rs.getString(3));
+                business.setBusinessAddress(rs.getString(4));
+                business.setBusinessExplain(rs.getString(5));
+                business.setStarPrice(rs.getDouble(6));
+                business.setDeliveryPrice(rs.getDouble(7));
                 list.add(business);
             }
 
@@ -94,14 +106,89 @@ public class BusinessDaoImpl implements BusinessDao{
         return result;
     }
 
+    /**
+     *修改商家
+     * @param business
+     * @return
+     */
     @Override
-    public int supdateBusiness(Business business){
-        return 0;
+    public int updateBusiness(Business business){
+        int result = 0;
+        String sql = "update business set businessName = ?,businessAddress = ?,businessExplain = ?,starPrice = ?,deliveryPrice = ? where businessId = ?";
+        try {
+            conn = JDBCUtil.getConnection();
+            pst = conn.prepareStatement(sql);
+            pst.setString(1,business.getBusinessName());
+            pst.setString(2,business.getBusinessAddress());
+            pst.setString(3,business.getBusinessExplain());
+            pst.setDouble(4,business.getStarPrice());
+            pst.setDouble(5,business.getDeliveryPrice());
+            pst.setInt(6,business.getBusinessId());
+            result = pst.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * 通过Id查询商家
+     * @return
+     */
+    @Override
+    public Business getBusinessById(Integer businessId){
+        Business business = null;
+        String sql = "select * from business where businessId = ?";
+        try {
+            conn = JDBCUtil.getConnection();
+            pst = conn.prepareStatement(sql);
+            pst.setInt(1,businessId);
+            rs = pst.executeQuery();
+            while(rs.next()){
+                business = new Business();
+                business.setBusinessName(rs.getString("businessName"));
+                business.setBusinessAddress(rs.getString("businessAddress"));
+                business.setBusinessExplain(rs.getString("businessExplain"));
+                business.setStarPrice(rs.getDouble("starPrice"));
+                business.setDeliveryPrice(rs.getDouble("deliveryPrice"));
+                business.setBusinessId(rs.getInt("businessId"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            JDBCUtil.close(rs,pst,conn);
+        }
+        return business;
     }
 
     @Override
-    public Business getBusinessById(){
-        return null;
+    public Business getBusinessByIdAndPassword(Integer businessId, String password) {
+        Business business = null;
+        String sql = "select * from business where businessId = ? and password = ? ";
+
+        try {
+            conn = JDBCUtil.getConnection();
+            pst = conn.prepareStatement(sql);
+            pst.setInt(1, businessId);
+            pst.setString(2, password);
+            rs = pst.executeQuery();
+
+            while (rs.next()){
+                business = new Business();
+                business.setBusinessId(rs.getInt("businessId"));
+                business.setPassword(rs.getString("password"));
+                business.setBusinessName(rs.getString("businessName"));
+                business.setBusinessAddress(rs.getString("businessAddress"));
+                business.setBusinessExplain(rs.getString("businessExplain"));
+                business.setStarPrice(rs.getDouble("starPrice"));
+                business.setDeliveryPrice(rs.getDouble("deliveryPrice"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            JDBCUtil.close(rs, pst, conn);
+        }
+        return business;
     }
 }
 
