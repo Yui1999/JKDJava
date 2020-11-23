@@ -4,6 +4,7 @@ import com.company.Dao.BusinessDao;
 import com.company.Dao.impl.BusinessDaoImpl;
 import com.company.domain.Business;
 import com.company.view.BusinessView;
+import sun.security.provider.certpath.BuildStep;
 
 import java.sql.SQLOutput;
 import java.util.List;
@@ -94,7 +95,33 @@ public class BusinessViewImpl implements BusinessView {
         Integer businessId = input.nextInt();
         System.out.println("请输入密码");
         String password = input.next();
-        BusinessDaoImpl dao = new BusinessDaoImpl();
-        return dao.getBusinessByIdAndPassword(businessId, password);
+        BusinessDaoImpl businessDao = new BusinessDaoImpl();
+        return businessDao.getBusinessByIdAndPassword(businessId, password);
+    }
+
+
+    @Override
+    public void updatePassword(Integer businessId) {
+        BusinessDao businessDao = new BusinessDaoImpl();
+        Business business = businessDao.getBusinessById(businessId);
+        System.out.println("请输入旧密码");
+        String oldPass = input.next();
+        System.out.println("请输入新密码");
+        String newPass = input.next();
+        System.out.println("请再次输入新密码");
+        String beginNewPass = input.next();
+        // 进行密码校验
+        if (!business.getPassword().equals(oldPass)){
+            System.out.println("你的密码蒙错了，请重新输入");
+        }else if (!newPass.equals(beginNewPass)){
+            System.out.println("两次密码不一致请重新输入");
+        }else {
+            int res = businessDao.updateBusinessPassword(businessId, newPass);
+            if (res>0){
+                System.out.println("修改密码成功！");
+            }else {
+                System.out.println("修改密码失败！");
+            }
+        }
     }
 }
