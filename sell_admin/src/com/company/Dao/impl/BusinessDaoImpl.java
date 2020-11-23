@@ -21,7 +21,7 @@ public class BusinessDaoImpl implements BusinessDao{
         ArrayList<Business> list = new ArrayList<>();
         StringBuffer sql = new StringBuffer("select * from business WHERE 1=1");
         if(businessName != null && !businessName.equals("")){
-            sql.append("and businessAddress like '%"+businessName+"%'");
+            sql.append("and businessName LIKE '%"+businessName+"%'");
         }
         if(businessAddress != null && !businessAddress.equals("")){
             sql.append("and businessAddress like '%"+businessAddress+"%'");

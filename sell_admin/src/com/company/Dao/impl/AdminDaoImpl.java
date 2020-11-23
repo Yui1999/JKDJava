@@ -14,7 +14,7 @@ public class AdminDaoImpl implements AdminDao {
     ResultSet rs = null;
     public Admin getAdminByNameAndPassword(String adminName,String password){
         Admin admin = null;
-        String sql = "select * from admin where adminName = ?,Password = ?";
+        String sql = "select * from admin where adminName = ? and password = ?";
         try {
             conn = JDBCUtil.getConnection();
             pst = conn.prepareStatement(sql);
