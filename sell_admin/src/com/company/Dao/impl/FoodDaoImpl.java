@@ -36,6 +36,8 @@ import java.util.List;
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            JDBCUtil.close(resultSet,preparedStatement,connection);
         }
         return list;
     }
@@ -66,7 +68,7 @@ import java.util.List;
     @Override
     public int updateFood(Food food) {
         int result = 0;
-        String sql = "update food set foodName = ?,foodExplain = ?,foodPrice = ?,businessId = ?,where foodId = ?";
+        String sql = "update food set foodName = ?,foodExplain = ?,foodPrice = ? where businessId = ? and foodId = ?";
         try {
             connection = JDBCUtil.getConnection();
             preparedStatement = connection.prepareStatement(sql);
@@ -78,29 +80,24 @@ import java.util.List;
             result = preparedStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            JDBCUtil.close(null,preparedStatement,connection);
         }
         return result;
     }
 
     @Override
-    public int removeFood(Integer foodId) {
+    public int removeFood(Integer foodId,Integer businessId) {
         int result = 0;
-        String sql = "delete from food where foodId = ?";
+        String sql = "delete from food where foodId = ? and businessId = ?";
         try {
             connection = JDBCUtil.getConnection();
-            connection.setAutoCommit(false);
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1,foodId);
+            preparedStatement.setInt(2,businessId);
             result = preparedStatement.executeUpdate();
-
-            connection.commit();
+            return result;
         } catch (Exception e) {
-            result = 0;
-            try {
-                connection.rollback();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
             e.printStackTrace();
         }finally {
             JDBCUtil.close(preparedStatement,connection);

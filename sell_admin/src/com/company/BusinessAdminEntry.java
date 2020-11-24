@@ -11,6 +11,10 @@ public class BusinessAdminEntry {
     public static void main(String[] args) {
         run();
 
+        Scanner input = new Scanner(System.in);
+        System.out.println("请输入要操作的商家编号");
+        int businessId = Integer.parseInt(input.next());
+        foodManager(businessId);
     }
 
     public static void run() {
@@ -35,12 +39,12 @@ public class BusinessAdminEntry {
                 menu = input.nextInt();
                 switch (menu) {
                     case 1:
-//                        businessView.listAllBusinesses();
-                        System.out.println("1、查看商家信息");
+                        System.out.println("1、查看商家信息:");
+                        businessView.listAllBusinesses();
                         break;
                     case 2:
-//                        businessView.selectBusinesses();
-                        System.out.println("2、修改商家信息");
+                        System.out.println("2、修改商家信息:");
+                        businessView.selectBusinesses();
                         break;
                     case 3:
                         businessView.updatePassword(business.getBusinessId());
@@ -49,10 +53,10 @@ public class BusinessAdminEntry {
                         businessView.removeBusiness();
                         break;
                     case 5:
-                        System.out.println("欢迎下次登录");
+                        System.out.println("欢迎下次登录!");
                         break;
                     default:
-                        System.out.println("没有这个选项");
+                        System.out.println("没有这个选项!");
                         break;
                 }
             }
