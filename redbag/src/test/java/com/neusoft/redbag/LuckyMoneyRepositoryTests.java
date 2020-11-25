@@ -34,8 +34,8 @@ public class LuckyMoneyRepositoryTests {
     public void save(){
         LuckyMoney luckyMoney = new LuckyMoney();
         luckyMoney.setConsumer("大加加");
-        luckyMoney.setMoney(new BigDecimal(32.32));
-        luckyMoney.setProducer("小加加");
+        luckyMoney.setMoney(new BigDecimal(11.11));
+        luckyMoney.setProducer("谬加加");
         //save是正常的保存
 //        repository.save(luckyMoney);
         //saveAndFlush是在同一事物下提前就保存
@@ -48,10 +48,10 @@ public class LuckyMoneyRepositoryTests {
     @Test
     public void update(){
         LuckyMoney luckyMoney = new LuckyMoney();
-        luckyMoney.setConsumer("小加加");
-        luckyMoney.setMoney(new BigDecimal(32.32));
+        luckyMoney.setConsumer("大加加");
+        luckyMoney.setMoney(new BigDecimal(11.11));
         luckyMoney.setProducer("谬加加");
-        luckyMoney.setId(1);
+        luckyMoney.setId(3);
         repository.save(luckyMoney);
     }
 }
