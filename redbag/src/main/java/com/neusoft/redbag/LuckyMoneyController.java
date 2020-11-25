@@ -1,6 +1,5 @@
 package com.neusoft.redbag;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,8 +11,10 @@ import java.util.Optional;
 //@Controller 是将此类交给Spring进行管理
 //@ResponseBody 是返回给客户端的回应
 @RestController
+@RequestMapping("/bag")
 public class LuckyMoneyController {
 
+    //注入dao层接口
     @Autowired
     private LuckyMoneyRepository repository;
 
@@ -21,8 +22,8 @@ public class LuckyMoneyController {
      * 获取红包列表
      * @return
      */
-//    @GetMapping("/list")
-    @RequestMapping("/list")
+    @GetMapping("/list")
+//    @RequestMapping("/list")
     public List<LuckyMoney> list(){
         return repository.findAll();
     }
@@ -33,7 +34,7 @@ public class LuckyMoneyController {
      * @param money
      * @return luckyMoney
      */
-    @RequestMapping("/post")
+    @PostMapping("/post")
     public LuckyMoney postRedBag(@RequestParam(value = "producer",required = true)String producer,@RequestParam(value = "money",required = true)BigDecimal money){
        LuckyMoney luckyMoney = new LuckyMoney();
        luckyMoney.setProducer(producer);
@@ -48,9 +49,14 @@ public class LuckyMoneyController {
      */
     @GetMapping("/find/{id}")
     public LuckyMoney findById(@PathVariable("id") Integer id){
-        Optional<LuckyMoney> optional = repository.findById(id);
-        LuckyMoney luckyMoney = optional.get();
-        return luckyMoney;
+//        Optional<LuckyMoney> optional = repository.findById(id);
+//        if(optional.isPresent()){
+//            LuckyMoney luckyMoney = optional.get();
+//            return luckyMoney;
+//        }
+//        return null;
+        //如果有就返回luckyMoney对象，如果没有就返回other
+        return repository.findById(id).orElse(null);
     }
 
     /**
@@ -69,4 +75,6 @@ public class LuckyMoneyController {
         }
         return null;
     }
+
+
 }
