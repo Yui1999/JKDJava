@@ -1,7 +1,6 @@
 package com.neusoft.redbag;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -10,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @Table(name = "tb_user")
-@NoArgsConstructor
+
 public class User {
 
     @Id
@@ -25,4 +24,8 @@ public class User {
     @Column(name = "email",length = 64)
     private String email;
 
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }
