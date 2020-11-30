@@ -17,10 +17,11 @@ public interface ProductService {
     // 新增商品
     ProductInfo save(ProductInfo productInfo);
     // 上架
-    void increaseStock(String productId);
+    ProductInfo onSale(String productId);
     // 下架
-    void decreaseStock(String productId);
+    ProductInfo offSale(String productId);
     // 加库存
-
+    void increaseStock(String productId);
     // 减库存
+    void decreaseStock(String productId);
 }

@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * 订单主表
+ */
 @Entity
 @Data
 @DynamicUpdate
@@ -19,7 +22,7 @@ public class OrderMaster {
     private String orderId;
 
     /** 买家名字 */
-    private String userName;
+    private String buyerName;
 
     /** 买家手机号 */
     private String buyerPhone;
