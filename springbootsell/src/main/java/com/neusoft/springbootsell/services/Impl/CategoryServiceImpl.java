@@ -4,15 +4,18 @@ import com.neusoft.springbootsell.dataobject.ProductCategory;
 import com.neusoft.springbootsell.repository.ProductCategoryRepository;
 import com.neusoft.springbootsell.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private ProductCategoryRepository repository;
 
     @Override
     public ProductCategory findOne(Integer categoryId) {
+
         return repository.findOne(categoryId);
     }
 

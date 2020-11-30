@@ -3,7 +3,7 @@ package com.neusoft.springbootsell.enums;
 import lombok.Getter;
 
 @Getter
-public enum ResultEnum implements CodeEnum {
+public enum ResultEnum implements CodeEnums {
     SUCCESS(0, "成功"),
 
     PARAM_ERROR(1, "参数不正确"),
@@ -46,5 +46,10 @@ public enum ResultEnum implements CodeEnum {
     ResultEnum(Integer code, String message) {
         this.code = code;
         this.message = message;
+    }
+
+    @Override
+    public Integer getCode() {
+        return null;
     }
 }
