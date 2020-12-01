@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <div class="row clearfix">
                 <div class="col-md-12 column">
-                    <div class="table table-bordered table-condensed">
+                    <table class="table table-bordered table-condensed">
                         <thead>
                         <tr>
                             <th>商品id</th>
@@ -50,8 +50,8 @@
                         </#list>
 
                         </tbody>
-                        </table>
-                    </div>
+
+                    </table>
                     <div class="col-md-12 column">
                         <#--                    pull-right 控件靠右-->
                         <ul class="pagination pull-right">
