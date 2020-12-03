@@ -4,11 +4,9 @@ package com.neusoft.springbootsell.services;
 import com.neusoft.springbootsell.dataobject.ProductInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface ProductService {
     // 查询一个商品
     ProductInfo findOne(String productId);
