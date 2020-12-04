@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
     <style>
         body{
-            background: #a6e1ec;
+            background: #A1A5D4;
             background-size: 100%;
         }
         .div{

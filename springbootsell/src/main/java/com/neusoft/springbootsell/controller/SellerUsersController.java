@@ -35,4 +35,8 @@ public class SellerUsersController {
         return view;
     }
 
+    @GetMapping("/logon")
+    public ModelAndView logon(){
+        return new ModelAndView("users/logon");
+    }
 }

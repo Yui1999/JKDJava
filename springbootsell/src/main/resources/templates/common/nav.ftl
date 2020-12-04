@@ -7,7 +7,7 @@
             </a>
         </li>
         <li>
-            <a href="#"><i class="fa fa-fw fa-list-alt"></i> 订单</a>
+            <a href="/seller/master/list"><i class="fa fa-fw fa-list-alt"></i> 订单</a>
         </li>
         <li class="dropdown open">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"><i class="fa fa-fw fa-plus"></i> 商品 <span class="caret"></span></a>
@@ -27,7 +27,7 @@
         </li>
 
         <li>
-            <a href="/sell/seller/logout"><i class="fa fa-fw fa-list-alt"></i> 登出</a>
+            <a href="/seller/users/logon"><i class="fa fa-fw fa-list-alt"></i> 登出</a>
         </li>
     </ul>
 </nav>

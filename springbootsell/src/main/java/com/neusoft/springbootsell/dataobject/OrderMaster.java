@@ -31,7 +31,7 @@ public class OrderMaster {
     private String buyerAddress;
 
     /** 买家微信 openId*/
-    private String  buyerOpenId;
+    private String  buyerOpenid;
 
     /** 订单总金额 */
     private BigDecimal orderAmount;
@@ -48,4 +48,6 @@ public class OrderMaster {
 
     /** 更新时间*/
     private Date updateTime;
+
+
 }

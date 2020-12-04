@@ -49,7 +49,7 @@
                         </div>
 
                         <input hidden type="text" name="productId" value="${(productInfo.productId)!''}">
-                        <button type="submit" class="btn btn-default">提交</button>
+                        <input type="submit" class="btn btn-default" value="提交">
                     </form>
                 </div>
             </div>
